@@ -1,0 +1,22 @@
+## Join the two tables innear join used to join
+
+Table_name1 : table1
+
+colA
+Null
+1
+5
+2
+1
+Null
+
+Table_name2 : table2
+
+colB
+2
+null
+5
+5
+
+
+
