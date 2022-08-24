@@ -1,5 +1,7 @@
 ## Join the two tables innear join used to join
 
+link to practice that question : https://livesql.oracle.com/apex/livesql/s/nyc4oidddn8tajab5zq3qfflr
+
 Table_name1 : table1
 
 colA
@@ -17,6 +19,18 @@ colB
 null
 5
 5
+
+Required output:
+COLA	COLB
+ -	   -
+ 5    5
+ 5   	5
+ 2   	2
+ -   	-
+ 
+ Soultion:
+ select *from table1 inner join table2 
+on table1.colA=table2.colB or (table1.colA is null and table2.colB is null);
 
 
 
