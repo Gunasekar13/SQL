@@ -130,29 +130,29 @@ q5. write a query to fetch the city name of the students who have 2nd highest ma
     select student_name,city,course_name,marks from result_1
     where max_marks=2;
     
-q6. write a query to fetch the count of each city?    
+ q6. write a query to fetch the count of each city?    
     
     select city,count(*)as total_city_count from students
     group by city;
     
-q7. write a query to fetch the names of the students who are from the same city?
+ q7. write a query to fetch the names of the students who are from the same city?
 
      select city,group_concat(distinct(student_name) SEPARATOR ',')  from students
      group by city;
      
-q8.write a query to fetch the names of students starting with 'A'?
+ q8.write a query to fetch the names of students starting with 'A'?
 
     select student_name from students where student_name like 'A%';
    
-q9.write a query to fetch the count of students' names having the same marks in each course?
+ q9.write a query to fetch the count of students' names having the same marks in each course?
 
-   with cte as(select s.student_id,s.student_name,s.city,c.course_name,c.marks
+    with cte as(select s.student_id,s.student_name,s.city,c.course_name,c.marks
                from students s left join course c 
                on s.student_id=c.student_id)
    select course_name,marks,count(student_name) from cte 
    group by marks,course_name;
    
-q10.write a query to fetch the count of students from each city?
+ q10.write a query to fetch the count of students from each city?
 
     select city,count(student_name)as stud_from_city from students
     group by city;
