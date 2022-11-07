@@ -74,11 +74,87 @@ of 'Paris'. Return salesperson's name, city.
  q1. write a query to fetch the names of the students having maximum marks in each course?
     
     with cte as(select s.student_id ,s.student_name,s.city,c.course_name,c.marks
-from student s left join course c 
-on s.student_id=c.student_id),
-result_1 as(select *,
-rank()over(partition by course_name order by marks desc)as max_rank
-from cte)
-select student_name,course_name,marks from result_1
-where max_rank=1 ;
+                from student s left join course c 
+                on s.student_id=c.student_id),
+    result_1 as(select *,
+              rank()over(partition by course_name order by marks desc)as max_rank
+              from cte)
+    select student_name,course_name,marks from result_1
+    where max_rank=1 ;
+  
+ q2. write a query to fetch the names of the students having 3th highest marks from each course?
+ 
+     with cte as(select s.student_id,s.student_name,s.city,c.course_name,c.marks
+                from students s left join course c 
+                on s.student_id=c.student_id
+                where c.course_name is not null), 
+     result_1 as(select *,
+                rank() over(partition by course_name order by marks desc)as max_marks
+               from cte)
+    select student_name,course_name,marks from result_1
+    where max_marks=3;
+    
+q3. write a query to fetch the names of the students having minimum marks in each course?
+
+     with cte as(select s.student_id,s.student_name,s.city,c.course_name,c.marks
+                from students s left join course c 
+                on s.student_id=c.student_id
+                where c.course_name is not null), 
+    result_1 as(select *,
+                rank() over(partition by course_name order by marks asc)as min_marks
+                from cte)
+    select student_name,course_name,marks from result_1
+    where min_marks=1;
+    
+q4. write a query to fetch the names of the students having 4th least marks from each course?
+
+    with cte as(select s.student_id,s.student_name,s.city,c.course_name,c.marks
+                from students s left join course c 
+                on s.student_id=c.student_id
+                where c.course_name is not null), 
+   result_1 as(select *,
+               rank() over(partition by course_name order by marks desc)as max_marks
+               from cte)
+   select student_name,course_name,marks from result_1
+   where max_marks=4;
+   
+q5. write a query to fetch the city name of the students who have 2nd highest marks?
+
+    with cte as(select s.student_id,s.student_name,s.city,c.course_name,c.marks
+                from students s left join course c 
+                on s.student_id=c.student_id
+                where c.course_name is not null), 
+    result_1 as(select *,
+                dense_rank() over(partition by course_name order by marks desc)as max_marks
+                from cte)
+    select student_name,city,course_name,marks from result_1
+    where max_marks=2;
+    
+q6. write a query to fetch the count of each city?    
+    
+    select city,count(*)as total_city_count from students
+    group by city;
+    
+q7. write a query to fetch the names of the students who are from the same city?
+
+     select city,group_concat(distinct(student_name) SEPARATOR ',')  from students
+     group by city;
+     
+q8.write a query to fetch the names of students starting with 'A'?
+
+    select student_name from students where student_name like 'A%';
+   
+q9.write a query to fetch the count of students' names having the same marks in each course?
+
+   with cte as(select s.student_id,s.student_name,s.city,c.course_name,c.marks
+               from students s left join course c 
+               on s.student_id=c.student_id)
+   select course_name,marks,count(student_name) from cte 
+   group by marks,course_name;
+   
+q10.write a query to fetch the count of students from each city?
+
+    select city,count(student_name)as stud_from_city from students
+    group by city;
+    
     
