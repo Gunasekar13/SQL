@@ -71,4 +71,14 @@ of 'Paris'. Return salesperson's name, city.
           
 7. Problem statement: Suppose we have two table students and course
 
+ q1. write a query to fetch the names of the students having maximum marks in each course?
+    
+    with cte as(select s.student_id ,s.student_name,s.city,c.course_name,c.marks
+from student s left join course c 
+on s.student_id=c.student_id),
+result_1 as(select *,
+rank()over(partition by course_name order by marks desc)as max_rank
+from cte)
+select student_name,course_name,marks from result_1
+where max_rank=1 ;
     
