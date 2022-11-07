@@ -1,2 +1,74 @@
 Source file :   https://drive.google.com/drive/folders/1DkIqDN-lWgkN0Ca8bHMhivD6fYnDJ0gf
 
+1. Write a query to display the columns in a specific order, such as order date,
+salesman ID, order number, and purchase amount for all orders.
+
+     select order_date,salesman_id,order_no,purch_amt 
+     from Orders;
+
+2. From the following table, write a SQL query to locate salespeople who live in the city
+of 'Paris'. Return salesperson's name, city.
+
+     select name as sales_name,city from city
+     where city like 'Paris';
+     
+3. From the following table, write a SQL query to select a range of products whose price is in the range Rs.200 to Rs.600. Begin and end values are included. Return pro_id, pro_name, pro_price, and pro_com.
+     
+     select pro_id,pro_name,pro_price,pro_com from products
+     where PRO_PRICE BETWEEN 200 AND 600;
+     
+4. From the following table, write a SQL query to find the items whose prices are higher than or equal to $550. Order the result by product price in descending, then product name in ascending.
+
+     SELECT PRO_NAME,PRO_PRICE FROM products
+     where pro_price>=550
+     order by pro_price desc,pro_name asc;
+     
+5. From the following table, write a SQL query to find details of all orders excluding those with ord_date equal to '2012-09-10' and salesman_id higher than 5005 or purch_amt greater than 1000.Return ord_no, purch_amt, ord_date, customer_id and salesman_id.
+
+     select order_no,purch_amt,order_date,customer_id,salesman_id from Orders
+     where order_date='2012-09-10' and salesman_id>=5005 and purch_amt>=1000;
+     
+ 6. Create the table world with your schema and find the below queries !
+   i) Write a query to fetch which country has the highest population?
+   
+         select *from world
+         where population=(select max(population) from world);
+         
+   ii) write a query to fetch the name of the country which has the least gdp?
+   
+        select continent as country from world 
+        where gdp=(select min(gdp) from world)
+        
+   iii) Write a query to fetch the name of the country which ends with letter C?
+   
+         select continent  from world
+         where continent like '%C';
+        
+    iv) write a query to fetch the name of the country which starts with letter D?
+    
+         select continent  from world
+         where continent like 'D%';
+         
+     v) write query to fetch which continent has highest gdp?
+        
+         select continent from world
+         where gdp=(select max(gdp) from world);
+       
+    vi) Give the total GDP of Africa?
+      
+        select sum(gdp)as total_gdp from world
+        where continent='Africa';
+      
+    vii) write a query to fetch the total population for each continent?
+    
+         select continent,sum(population)as total_population from world
+         group by continent;
+       
+    viii) For each relevant continent show the number of countries that has a population of at least 200000000?
+    
+          select *from world
+          where population>=200000000;
+          
+7. Problem statement: Suppose we have two table students and course
+
+    
