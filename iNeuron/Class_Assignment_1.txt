@@ -157,4 +157,24 @@ q5. write a query to fetch the city name of the students who have 2nd highest ma
     select city,count(student_name)as stud_from_city from students
     group by city;
     
-    
+8. Create a table below.
+  q1. Write an SQL query to report the first login date for each player.Return the result table in any order.
+  
+      with cte as(select *,rank() over(partition by player_id order by event_date)as log_in from games)
+      select player_id,event_date as first_login_date from cte 
+      where log_in=1;
+      
+9. Create a table below.
+   q1. Write an SQL query to find the ids of products that are both low fat and recyclable.Return the result table in any order.
+   
+        select product_id from products where (low_fats,recyclable)=('Y','Y');
+
+10. Create a table below.
+    1. Select the statement that shows the sum of population of all countries 
+          select sum(population)as total_population from country_data;
+    2. Select the statement that shows the number of countries with population smaller than 150000
+           select count(*) from country_data where population>=150000;
+    3. Select the list of core SQL aggregate functions
+        sum,max,min,count,avg,mean,rank,dense_rank,row_number
+    5. Select the statement that shows the average population of 'Poland', 'Germany' and 'Denmark'
+     
