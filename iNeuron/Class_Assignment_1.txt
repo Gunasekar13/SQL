@@ -175,6 +175,15 @@ q5. write a query to fetch the city name of the students who have 2nd highest ma
     2. Select the statement that shows the number of countries with population smaller than 150000
            select count(*) from country_data where population>=150000;
     3. Select the list of core SQL aggregate functions
-        sum,max,min,count,avg,mean,rank,dense_rank,row_number
+        sum,max,min,count,avg
     5. Select the statement that shows the average population of 'Poland', 'Germany' and 'Denmark'
+        select avg(population) from country_data where name in('Poland', 'Germany','Denmark');
+    6. Select the statement that shows the medium population density of each region
+         select region,sum(population)/sum(area) as density from country_data group by region;
+    7. Select the statement that shows the name and population density of the country with the largest population
+         select region,population/area as density from country_data
+         where population=(select max(population) from country_data);
+         
+    
+        
      
