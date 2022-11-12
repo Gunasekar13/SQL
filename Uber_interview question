@@ -1,0 +1,42 @@
+              8-(root)
+           5     9 -(innear)
+         1   4  3  2 - (Leaf)
+------------------
+Node   + Parent  
+------------------
+ 5         8
+ 1         5
+ 3         9
+ 9         8
+ 4         5
+ 2         9
+ 8         Null
+ -------------------
+ 
+ Required Output:
+ ===============
+------------------
+Node   + Type
+------------------
+ 5       Innear
+ 1       Leaf
+ 3       Leaf
+ 9       Innear
+ 4       Leaf
+ 2       Leaf
+ 8       Root
+ -----------------
+                                   SOLUTIONS
+                                   =========
+Create table tree(
+    node int,
+    parent int
+);
+
+insert into tree values(5,8),(9,8),(4,5),(2,9),(1,5),(3,9),(8,null);
+
+select node,
+(case when parent is null then 'Root' 
+when node not in (select distinct(parent) from tree where parent is not null) then 'Leaf Node'
+else 'Innear Node' end)as type
+from tree;
