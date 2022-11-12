@@ -1,1 +1,51 @@
 
+------------------------------------------
+trx_date    merchant  amount  Payment_method
+-------------------------------------------
+22-APR-2021   m1      150       CASH
+22-APR-2021   m2      500       ONLINE
+04-APR-2021   m2      150       ONLINE
+04-APR-2021   m1      150       CASH
+02-APR-2021   m3      500       ONLINE
+02-APR-2021   m2      600       ONLINE
+07-APR-2021   m2      500       CASH
+02-APR-2021   m3      600       ONLINE
+---------------------------------------------
+REQUIRED OUTPUT:
+======== ======
+------------------------------------------
+merchant   CASH_method    ONLINE_method
+-----------------------------------------
+  m1          300           (NULL)
+  m2          500            710
+  m3        (NULL)          1100
+-------------------------------------------
+
+                                                          SOLUTIONS
+                                                          =========
+
+create table transactions
+(
+    trxdate varchar(20),
+    merchant varchar(20),
+    amount int,
+    Payment_method varchar(20)
+);
+
+insert into transactions values('22-APR-2021','m1',150,'CASH'),
+('22-APR-2021','m2',500,'ONLINE'),
+('04-APR-2021','m2',150,'ONLINE'),
+('04-APR-2021','m1',150,'CASH'),
+('02-APR-2021','m3',500,'ONLINE'),
+('02-APR-2021','m2',60,'ONLINE'),
+('07-APR-2021','m2',500,'CASH'),
+('02-APR-2021','m3',600,'ONLINE');
+
+select *from transactions;
+
+
+select merchant,
+       sum(case when Payment_method='CASH' then amount end)as CASH_method,
+       sum(case when Payment_method ='ONLINE' then amount  end)as ONLINE_method
+from transactions
+group by merchant;
